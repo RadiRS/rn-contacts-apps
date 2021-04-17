@@ -1,13 +1,9 @@
 import React from 'react';
-import {SafeAreaView, StatusBar, Text} from 'react-native';
+
+import AppNavContainer from './src/navigations';
 
 const App = () => {
-  return (
-    <SafeAreaView>
-      <StatusBar />
-      <Text>Initial Project</Text>
-    </SafeAreaView>
-  );
+  return <AppNavContainer />;
 };
 
 export default App;

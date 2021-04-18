@@ -1,11 +1,15 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {Text} from 'react-native';
+
+import {Container, Input} from '../../components/common';
 
 const Login = () => {
   return (
-    <View>
+    <Container>
       <Text>Login</Text>
-    </View>
+      <Input label="Username" />
+      <Input label="Password" icon={<Text>Hide</Text>} iconPosition="right" />
+    </Container>
   );
 };
 

@@ -4,6 +4,7 @@ import {Image, Text, TouchableOpacity, View} from 'react-native';
 
 import {REGISTER} from '../../constants/route-names';
 import {Button, Container, Input} from '../common';
+import Message from '../message';
 
 import styles from './styles';
 
@@ -20,6 +21,10 @@ const Login = () => {
       <View>
         <Text style={styles.title}>Welcome to RNContacts</Text>
         <Text style={styles.subTitle}>Please login here</Text>
+        <Message onRetry={() => null} message="invalid" />
+        <Message onDismiss={() => null} message="invalid" info />
+        <Message message="invalid" success />
+        <Message message="invalid" danger />
         <View style={styles.form}>
           <Input label="Username" placeholder="Enter Username" />
           <Input

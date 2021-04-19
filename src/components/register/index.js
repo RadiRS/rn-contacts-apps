@@ -2,26 +2,29 @@ import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
 
-import {REGISTER} from '../../constants/route-names';
+import {LOGIN} from '../../constants/route-names';
 import {Button, Container, Input} from '../common';
 
 import styles from './styles';
 
-const Login = () => {
+const RegisterComponent = () => {
   const navigation = useNavigation();
   const uri =
     'https://image.freepik.com/free-psd/whatsapp-icon-isolated-3d-rendering_75891-1042.jpg';
 
-  const onPressRegister = () => navigation.navigate(REGISTER);
+  const onPressLogin = () => navigation.navigate(LOGIN);
 
   return (
     <Container>
       <Image source={{uri}} style={styles.logoImage} />
       <View>
         <Text style={styles.title}>Welcome to RNContacts</Text>
-        <Text style={styles.subTitle}>Please login here</Text>
+        <Text style={styles.subTitle}>Create a free account</Text>
         <View style={styles.form}>
           <Input label="Username" placeholder="Enter Username" />
+          <Input label="First name" placeholder="Enter First name" />
+          <Input label="Last name" placeholder="Enter Last name" />
+          <Input label="Email" placeholder="Enter Email" />
           <Input
             label="Password"
             placeholder="Enter Password"
@@ -32,11 +35,11 @@ const Login = () => {
           <Button label="Submit" />
 
           <View style={styles.registerSection}>
-            <Text>Need a new account?</Text>
+            <Text>Already hava account?</Text>
             <TouchableOpacity
-              onPress={onPressRegister}
+              onPress={onPressLogin}
               style={styles.touchRegister}>
-              <Text style={styles.textRegister}>Register</Text>
+              <Text style={styles.textRegister}>Login</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -45,4 +48,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default RegisterComponent;

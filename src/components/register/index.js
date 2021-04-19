@@ -4,6 +4,7 @@ import {Image, Text, TouchableOpacity, View} from 'react-native';
 
 import {LOGIN} from '../../constants/route-names';
 import {Button, Container, Input} from '../common';
+import Message from '../message';
 
 import styles from './styles';
 
@@ -22,6 +23,10 @@ const RegisterComponent = ({errors, onChange, onSubmit, state}) => {
         <Text style={styles.title}>Welcome to RNContacts</Text>
         <Text style={styles.subTitle}>Create a free account</Text>
         <View style={styles.form}>
+          {error?.error(
+            <Message danger onRetry={() => null} message={error?.error} />,
+          )}
+
           <Input
             label="Username"
             placeholder="Enter Username"

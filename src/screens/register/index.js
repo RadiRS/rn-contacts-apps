@@ -24,9 +24,11 @@ const Register = () => {
 
   useFocusEffect(
     useCallback(() => {
-      if (authState.data || authState.error) {
-        clearAuthState()(authDispatch);
-      }
+      return () => {
+        if (authState.data || authState.error) {
+          clearAuthState()(authDispatch);
+        }
+      };
     }, [authState.data, authState.error]),
   );
 
@@ -48,13 +50,6 @@ const Register = () => {
   };
 
   const onSubmit = () => {
-    // sort vaildation if key already set in initial state
-    // Object.keys(form).map(item => {
-    //   if (!form?.[item]) {
-    //     setErrors(prev => ({...prev, item: 'Required'}));
-    //   }
-    // });
-
     if (!form?.username) {
       setErrors(prev => ({...prev, username: 'Required'}));
     }

@@ -21,17 +21,17 @@ const Input = ({
   const [focused, setFocused] = useState(false);
 
   const flexDirection = iconPosition === 'right' ? 'row-reverse' : 'row';
-  const borderColor = focused
-    ? colors.primary
-    : error
+  const borderColor = error
     ? colors.danger
+    : focused
+    ? colors.primary
     : colors.grey;
 
   return (
     <View style={styles.inputContainer}>
       {label && <Text>{label}</Text>}
       <View style={[styles.wrapper, {flexDirection, borderColor}]}>
-        {icon && icon}
+        {!!icon && icon}
         <TextInput
           style={[styles.textInput, style]}
           onChangeText={onChangeText}
@@ -44,7 +44,7 @@ const Input = ({
           {...props}
         />
       </View>
-      {error && <Text style={styles.error}>{error}</Text>}
+      {!!error && <Text style={styles.error}>{error}</Text>}
     </View>
   );
 };

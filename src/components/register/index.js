@@ -7,7 +7,7 @@ import {Button, Container, Input} from '../common';
 
 import styles from './styles';
 
-const RegisterComponent = () => {
+const RegisterComponent = ({form, errors, onChange, onSubmit}) => {
   const navigation = useNavigation();
   const uri =
     'https://image.freepik.com/free-psd/whatsapp-icon-isolated-3d-rendering_75891-1042.jpg';
@@ -21,18 +21,40 @@ const RegisterComponent = () => {
         <Text style={styles.title}>Welcome to RNContacts</Text>
         <Text style={styles.subTitle}>Create a free account</Text>
         <View style={styles.form}>
-          <Input label="Username" placeholder="Enter Username" />
-          <Input label="First name" placeholder="Enter First name" />
-          <Input label="Last name" placeholder="Enter Last name" />
-          <Input label="Email" placeholder="Enter Email" />
           <Input
+            label="Username"
+            placeholder="Enter Username"
+            error={errors?.username}
+            onChangeText={value => onChange({name: 'username', value})}
+          />
+          <Input
+            label="First name"
+            placeholder="Enter First name"
+            error={errors?.firstName}
+            onChangeText={value => onChange({name: 'firstName', value})}
+          />
+          <Input
+            label="Last name"
+            placeholder="Enter Last name"
+            error={errors?.lastName}
+            onChangeText={value => onChange({name: 'lastName', value})}
+          />
+          <Input
+            label="Email"
+            placeholder="Enter Email"
+            error={errors?.email}
+            onChangeText={value => onChange({name: 'email', value})}
+          />
+          <Input
+            secure
             label="Password"
             placeholder="Enter Password"
-            icon={<Text>Show</Text>}
             iconPosition="right"
-            secure
+            icon={<Text>Show</Text>}
+            error={errors?.password}
+            onChangeText={value => onChange({name: 'password', value})}
           />
-          <Button label="Submit" />
+          <Button label="Submit" onPress={onSubmit} />
 
           <View style={styles.registerSection}>
             <Text>Already hava account?</Text>

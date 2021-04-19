@@ -1,17 +1,34 @@
-import React, {useEffect, useState} from 'react';
-import axiosInstance from '../../helpers/axios-interceptor';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, {useCallback, useContext, useEffect, useState} from 'react';
+import {useNavigation, useFocusEffect} from '@react-navigation/native';
+
+import postRegister, {
+  clearAuthState,
+} from '../../context/actions/auth/register';
+import {GlobalContext} from '../../context/provider';
+import {LOGIN} from '../../constants/route-names';
 
 import RegisterComponent from '../../components/register';
 
 const Register = () => {
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
+  const {authDispatch, authState} = useContext(GlobalContext);
+  const navigation = useNavigation();
 
   useEffect(() => {
-    axiosInstance
-      .get('/contacts')
-      .catch(err => console.log('error', err.response));
-  }, []);
+    if (authState.data) {
+      navigation.navigate(LOGIN);
+    }
+  }, [authState.data]);
+
+  useFocusEffect(
+    useCallback(() => {
+      if (authState.data || authState.error) {
+        clearAuthState()(authDispatch);
+      }
+    }, [authState.data, authState.error]),
+  );
 
   const onChange = ({name, value}) => {
     setForm({...form, [name]: value});
@@ -53,11 +70,20 @@ const Register = () => {
     if (!form?.password) {
       setErrors(prev => ({...prev, password: 'Required'}));
     }
+
+    if (
+      Object.values(form).length === 5 &&
+      Object.values(form).every(item => item.trim().length > 0) &&
+      Object.values(errors).every(item => !item)
+    ) {
+      postRegister(form)(authDispatch);
+    }
   };
 
   return (
     <RegisterComponent
       form={form}
+      state={authState}
       onChange={onChange}
       errors={errors}
       onSubmit={onSubmit}

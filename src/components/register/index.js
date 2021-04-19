@@ -7,8 +7,9 @@ import {Button, Container, Input} from '../common';
 
 import styles from './styles';
 
-const RegisterComponent = ({form, errors, onChange, onSubmit}) => {
+const RegisterComponent = ({errors, onChange, onSubmit, state}) => {
   const navigation = useNavigation();
+  const {error, loading} = state;
   const uri =
     'https://image.freepik.com/free-psd/whatsapp-icon-isolated-3d-rendering_75891-1042.jpg';
 
@@ -24,25 +25,25 @@ const RegisterComponent = ({form, errors, onChange, onSubmit}) => {
           <Input
             label="Username"
             placeholder="Enter Username"
-            error={errors?.username}
+            error={errors?.username || error?.username?.[0]}
             onChangeText={value => onChange({name: 'username', value})}
           />
           <Input
             label="First name"
             placeholder="Enter First name"
-            error={errors?.firstName}
+            error={errors?.firstName || error?.first_name?.[0]}
             onChangeText={value => onChange({name: 'firstName', value})}
           />
           <Input
             label="Last name"
             placeholder="Enter Last name"
-            error={errors?.lastName}
+            error={errors?.lastName || error?.last_name?.[0]}
             onChangeText={value => onChange({name: 'lastName', value})}
           />
           <Input
             label="Email"
             placeholder="Enter Email"
-            error={errors?.email}
+            error={errors?.email || error?.email?.[0]}
             onChangeText={value => onChange({name: 'email', value})}
           />
           <Input
@@ -51,10 +52,15 @@ const RegisterComponent = ({form, errors, onChange, onSubmit}) => {
             placeholder="Enter Password"
             iconPosition="right"
             icon={<Text>Show</Text>}
-            error={errors?.password}
+            error={errors?.password || error?.password?.[0]}
             onChangeText={value => onChange({name: 'password', value})}
           />
-          <Button label="Submit" onPress={onSubmit} />
+          <Button
+            label="Submit"
+            loading={loading}
+            disabled={loading}
+            onPress={onSubmit}
+          />
 
           <View style={styles.registerSection}>
             <Text>Already hava account?</Text>

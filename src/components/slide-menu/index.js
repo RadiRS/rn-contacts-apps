@@ -1,4 +1,5 @@
 import React from 'react';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import {
   View,
   Text,
@@ -35,12 +36,12 @@ const SlideMenu = ({navigation, authDispatch}) => {
 
   const menuItems = [
     {
-      icon: <Text>*</Text>,
+      icon: <MaterialIcon name="settings" size={20} />,
       name: 'Settings',
       onPress: () => navigation.navigate(SETTINGS),
     },
     {
-      icon: <Text>*</Text>,
+      icon: <MaterialIcon name="logout" size={20} />,
       name: 'Logout',
       onPress: handleLogout,
     },

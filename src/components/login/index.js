@@ -36,7 +36,6 @@ const Login = ({onSubmit, onChange, errors, state}) => {
             label="Password"
             placeholder="Enter Password"
             iconPosition="right"
-            icon={<Text>Show</Text>}
             error={errors?.password}
             onChangeText={value => onChange({name: 'password', value})}
           />

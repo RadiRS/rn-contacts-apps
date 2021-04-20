@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Text, TextInput, View} from 'react-native';
+import {Text, TextInput, TouchableOpacity, View} from 'react-native';
 
 import {colors} from '../../../assets/theme';
 
@@ -19,6 +19,7 @@ const Input = ({
   ...props
 }) => {
   const [focused, setFocused] = useState(false);
+  const [isSecureTextEntry, setSecureTextEntry] = useState(secure);
 
   const flexDirection = iconPosition === 'right' ? 'row-reverse' : 'row';
   const borderColor = error
@@ -31,14 +32,20 @@ const Input = ({
     <View style={styles.inputContainer}>
       {label && <Text>{label}</Text>}
       <View style={[styles.wrapper, {flexDirection, borderColor}]}>
-        {!!icon && icon}
+        {!!secure && (
+          <TouchableOpacity
+            onPress={() => setSecureTextEntry(!isSecureTextEntry)}>
+            <Text>{isSecureTextEntry ? 'Show' : 'Hide'}</Text>
+          </TouchableOpacity>
+        )}
+        {!!icon && !secure && icon}
         <TextInput
           style={[styles.textInput, style]}
           onChangeText={onChangeText}
           value={value}
           placeholder={placeholder}
           keyboardType={keyboardType}
-          secureTextEntry={secure}
+          secureTextEntry={isSecureTextEntry}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
           {...props}

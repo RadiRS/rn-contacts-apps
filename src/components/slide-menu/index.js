@@ -7,13 +7,14 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-import {SETTINGS} from '../../constants/route-names';
 
+import logoutUser from '../../context/actions/auth/logout';
+import {SETTINGS} from '../../constants/route-names';
 import {Container} from '../common';
 
 import styles from './styles';
 
-const SlideMenu = ({navigation}) => {
+const SlideMenu = ({navigation, authDispatch}) => {
   const uri =
     'https://image.freepik.com/free-psd/whatsapp-icon-isolated-3d-rendering_75891-1042.jpg';
 
@@ -27,7 +28,7 @@ const SlideMenu = ({navigation}) => {
       },
       {
         text: 'Ok',
-        onPress: () => {},
+        onPress: () => logoutUser()(authDispatch),
       },
     ]);
   };

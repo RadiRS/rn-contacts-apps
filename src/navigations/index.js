@@ -9,9 +9,11 @@ import DrawerNavigator from './drawer-navigator';
 import {GlobalContext} from '../context/provider';
 
 const AppNavContainer = () => {
-  const [isAuthenticated, setAuthenticated] = useState(false);
+  const {
+    authState: {isLoggedIn},
+  } = useContext(GlobalContext);
+  const [isAuthenticated, setAuthenticated] = useState(isLoggedIn);
   const [isAuthLoaded, setAuthLoaded] = useState(false);
-  const {authState} = useContext(GlobalContext);
 
   const getUser = async () => {
     try {
@@ -25,21 +27,21 @@ const AppNavContainer = () => {
         setAuthenticated(false);
       }
     } catch (error) {
+      console.log('🚀 ~ file: index.js ~ line 34 ~ getUser ~ error', error);
       setAuthLoaded(true);
-      console.warn(error);
     }
   };
 
   useEffect(() => {
     getUser();
-  }, []);
+  }, [isLoggedIn]);
 
   return (
     <>
       {!isAuthLoaded && <ActivityIndicator />}
       {isAuthLoaded && (
         <NavigationContainer>
-          {authState.isLoggedIn || isAuthenticated ? (
+          {isLoggedIn || isAuthenticated ? (
             <DrawerNavigator />
           ) : (
             <AuthNavigator />

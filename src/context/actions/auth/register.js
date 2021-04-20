@@ -6,7 +6,7 @@ import {
   REGISTER_SUCCESS,
 } from '../../../constants/action-types';
 
-export default form => async dispatch => {
+export default form => dispatch => async onSuccess => {
   const params = {
     email: form.email,
     password: form.password,
@@ -21,6 +21,8 @@ export default form => async dispatch => {
     const res = await axios.post('/auth/register', params);
 
     dispatch({type: REGISTER_SUCCESS, payload: res.data});
+
+    onSuccess(res.data);
   } catch (error) {
     dispatch({
       type: REGISTER_FAILED,

@@ -1,4 +1,6 @@
-import React, {useContext, useState} from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, {useContext, useEffect, useState} from 'react';
+import {useRoute} from '@react-navigation/native';
 
 import postLogin from '../../context/actions/auth/login';
 import {GlobalContext} from '../../context/provider';
@@ -7,7 +9,20 @@ import LoginComponent from '../../components/login';
 const Login = () => {
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
+  const [justSignedUp, setJustSignedUp] = useState(false);
   const {authDispatch, authState} = useContext(GlobalContext);
+  console.log('🚀 ~ file: index.js ~ line 14 ~ Login ~ authState', authState);
+  const {params} = useRoute();
+
+  useEffect(() => {
+    if (params?.data) {
+      setJustSignedUp(true);
+      setForm({
+        ...form,
+        username: params.data.username,
+      });
+    }
+  }, [params]);
 
   const onSubmit = () => {
     if (!form?.username) {
@@ -30,6 +45,8 @@ const Login = () => {
     } else {
       setErrors(prev => ({...prev, [name]: 'Required'}));
     }
+
+    setJustSignedUp(false);
   };
 
   return (
@@ -39,6 +56,7 @@ const Login = () => {
       onChange={onChange}
       onSubmit={onSubmit}
       state={authState}
+      justSignedUp={justSignedUp}
     />
   );
 };

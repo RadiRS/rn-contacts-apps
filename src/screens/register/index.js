@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useState} from 'react';
 import {useNavigation, useFocusEffect} from '@react-navigation/native';
 
 import postRegister, {
@@ -15,12 +15,6 @@ const Register = () => {
   const [errors, setErrors] = useState({});
   const {authDispatch, authState} = useContext(GlobalContext);
   const navigation = useNavigation();
-
-  useEffect(() => {
-    if (authState.data) {
-      navigation.navigate(LOGIN);
-    }
-  }, [authState.data]);
 
   useFocusEffect(
     useCallback(() => {
@@ -71,7 +65,9 @@ const Register = () => {
       Object.values(form).every(item => item.trim().length > 0) &&
       Object.values(errors).every(item => !item)
     ) {
-      postRegister(form)(authDispatch);
+      postRegister(form)(authDispatch)(res => {
+        navigation.navigate(LOGIN, {data: res});
+      });
     }
   };
 

@@ -8,7 +8,7 @@ import Message from '../message';
 
 import styles from './styles';
 
-const Login = ({onSubmit, onChange, errors, state}) => {
+const Login = ({form, onSubmit, onChange, errors, state, justSignedUp}) => {
   const navigation = useNavigation();
   const {loading, error} = state;
 
@@ -25,9 +25,13 @@ const Login = ({onSubmit, onChange, errors, state}) => {
         <Text style={styles.subTitle}>Please login here</Text>
         <View style={styles.form}>
           {error && <Message danger onDismiss message={error?.detail} />}
+          {justSignedUp && (
+            <Message onDismiss message="Account created successfully" />
+          )}
           <Input
             label="Username"
             placeholder="Enter Username"
+            value={form.username}
             error={errors?.username}
             onChangeText={value => onChange({name: 'username', value})}
           />

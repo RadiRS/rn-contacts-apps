@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, Text, SafeAreaView, Image, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  Image,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
 import {SETTINGS} from '../../constants/route-names';
 
 import {Container} from '../common';
@@ -10,6 +17,21 @@ const SlideMenu = ({navigation}) => {
   const uri =
     'https://image.freepik.com/free-psd/whatsapp-icon-isolated-3d-rendering_75891-1042.jpg';
 
+  const handleLogout = () => {
+    navigation.toggleDrawer();
+
+    Alert.alert('Logout!', 'Are you sure you want to logout?', [
+      {
+        text: 'Cancel',
+        onPress: () => {},
+      },
+      {
+        text: 'Ok',
+        onPress: () => {},
+      },
+    ]);
+  };
+
   const menuItems = [
     {
       icon: <Text>*</Text>,
@@ -19,7 +41,7 @@ const SlideMenu = ({navigation}) => {
     {
       icon: <Text>*</Text>,
       name: 'Logout',
-      onPress: () => null,
+      onPress: handleLogout,
     },
   ];
 

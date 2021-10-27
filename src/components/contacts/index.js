@@ -1,15 +1,23 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Text, View, FlatList} from 'react-native';
 
 import {Button, Container, Modal} from '../common';
+import Message from '../message';
 
 import styles from './styles';
 
 const Contacts = ({modalVisible, setModalVisible}) => {
+  const renderEmpty = () => (
+    <View>
+      <Message info message="No contacts to show" />
+    </View>
+  );
+
   return (
-    <Container style={styles.container}>
-      <Text>Contacts</Text>
-      <Button label="Open Modal" onPress={() => setModalVisible(true)} />
+    <View style={styles.container}>
+      <View>
+        <FlatList data={[]} ListEmptyComponent={renderEmpty} />
+      </View>
       <Modal
         title="My Profile"
         modalVisible={modalVisible}
@@ -20,7 +28,7 @@ const Contacts = ({modalVisible, setModalVisible}) => {
           </View>
         }
       />
-    </Container>
+    </View>
   );
 };
 
